@@ -23,6 +23,13 @@ type Config struct {
 	Log    LogConfig
 }
 
+func execute(targets []TargetConfig) {
+	for idx, target := range targets {
+		result, err := ping(target.URL, target.ExpectedCode)
+		fmt.Printf("entry=%d url=%v result=%v error=%v\n", idx, target.URL, result, err)
+	}
+}
+
 func main() {
 	confNamePtr := flag.String("conf", "httpsonar.toml", "config file")
 	flag.Parse()
@@ -36,8 +43,5 @@ func main() {
 
 	ConfigLogging(config.Log)
 
-	for idx, target := range config.Target {
-		result, err := ping(target.URL, target.ExpectedCode)
-		fmt.Printf("entry:%d result:%v error:%v\n", idx, result, err)
-	}
+	execute(config.Target)
 }
