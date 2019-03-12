@@ -1,0 +1,13 @@
+[[target]]
+url = "https://example.com"
+method = "GET"
+expectedCode = 200
+
+[[target]]
+url = "https://example.com/notfound"
+method = "GET"
+expectedCode = 404
+
+[log]
+Level = "DEBUG"
+LogFile = "httpsonar.log"
